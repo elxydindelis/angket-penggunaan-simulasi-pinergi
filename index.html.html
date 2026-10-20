@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Angket PINERGI</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f8fb;--card:#fff;--ink:#16324a;--mut:#5a6f82;--pri:#0b6e99;--acc:#f59e0b;--line:#d4e0ea;--err:#b42318;--ok:#0f7b4f;--s:#9db3c4}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0f1b26;--card:#17283a;--ink:#e6eef5;--mut:#9fb3c4;--pri:#4cb4dd;--line:#2c4257;--err:#ff8b80;--ok:#6fdca7;--s:#587489}}
+:root[data-theme=dark]{--bg:#0f1b26;--card:#17283a;--ink:#e6eef5;--mut:#9fb3c4;--pri:#4cb4dd;--line:#2c4257;--err:#ff8b80;--ok:#6fdca7;--s:#587489}
+*{box-sizing:border-box}body{margin:0;font:16px/1.5 system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+.hero{background:linear-gradient(135deg,#0b6e99,#0e9f8e);color:#fff;padding:16px}.hero h1{margin:0;font-size:1.8rem;letter-spacing:.06em}.hero p{margin:2px 0 8px}
+.tabs{display:flex;gap:8px}.tabs button{background:rgba(255,255,255,.2);padding:8px 14px}.tabs button.on{background:#fff;color:#0b6e99}
+.wrap{max-width:760px;margin:0 auto;padding:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0}h2{font-size:1.1rem;margin:0 0 8px;color:var(--pri)}
+label.f{display:block;font-weight:600;margin:10px 0 4px}input[type=text],input[type=number],textarea,select{width:100%;padding:12px;font:inherit;border:1.5px solid var(--s);border-radius:10px;background:var(--card);color:var(--ink)}textarea{min-height:80px}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1 1 130px}
+fieldset{border:1.5px solid var(--line);border-radius:12px;margin:12px 0;padding:10px 12px}fieldset.bad{border-color:var(--err)}legend{font-weight:600;padding:0 6px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}.opts label{position:relative;display:block}.opts input{position:absolute;opacity:0}
+.opts span{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:52px;padding:8px;border:2px solid var(--s);border-radius:10px;font-weight:700;cursor:pointer;text-align:center}.opts small{font-weight:400;font-size:.78rem;color:var(--mut)}
+.opts input:checked+span{background:var(--pri);border-color:var(--pri);color:#fff}.opts input:checked+span small{color:#e6f4fa}.opts input:focus-visible+span{outline:3px solid var(--acc)}
+button{background:var(--pri);color:#fff;border:0;border-radius:10px;padding:12px 16px;font:inherit;font-weight:700;cursor:pointer}button.big{width:100%;padding:16px;font-size:1.1rem;margin-bottom:30px}button.sec{background:transparent;color:var(--ink);border:1.5px solid var(--s)}button:disabled{opacity:.55}
+.msg{padding:10px 12px;border-radius:10px;margin:10px 0;border:1px solid}.err{color:var(--err);border-color:var(--err)}.ok{color:var(--ok);border-color:var(--ok)}.hide{display:none!important}
+.prog{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:8px 0;z-index:5;font-size:.9rem}.bar{height:10px;background:var(--line);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--acc)}
+.code{word-break:break-all;font:13px/1.4 ui-monospace,monospace;border:1.5px dashed var(--s);border-radius:10px;padding:10px;margin:8px 0;user-select:all}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}.kpi{border:1px solid var(--line);border-radius:10px;padding:8px}.kpi b{display:block;font-size:1.5rem;color:var(--pri)}
+.hb{display:grid;grid-template-columns:minmax(120px,200px) 1fr 60px;gap:8px;align-items:center;margin:6px 0}.hb .t{background:var(--line);height:20px;border-radius:6px}.hb .t i{display:block;height:100%;background:var(--pri);border-radius:6px}
+.tw{overflow-x:auto;max-height:420px}table{border-collapse:collapse;width:100%;font-size:.85rem}th,td{border-bottom:1px solid var(--line);padding:6px;text-align:left;vertical-align:top}.ans{border-left:4px solid var(--line);padding:2px 10px;margin:6px 0}.mut{color:var(--mut);font-size:.85rem}
+</style></head><body>
+<div class="hero"><div class="wrap" style="padding:0"><h1>⚡ PINERGI</h1><p>Misi di Balik Jatuhnya Hadiah Panjat Pinang</p><div class="tabs"><button id="t1" class="on">Angket Murid</button><button id="t2">Guru</button></div></div></div>
+<div class="wrap">
+<div id="stu">
+<div id="done" class="card hide" role="status"><div class="msg ok"><b>✅ Jawabanmu sudah selesai.</b></div><p><b>Langkah terakhir:</b> salin kode di bawah, lalu kirim ke gurumu lewat WhatsApp. Jawabanmu baru dihitung setelah gurumu menerima kode ini.</p><div class="code" id="kode"></div><div class="row"><button id="cp">Salin kode</button><button class="sec" id="wa">Kirim lewat WhatsApp</button></div><div id="cpm" class="mut" role="status"></div></div>
+<form id="form" novalidate>
+<div class="card"><h2>Identitas</h2><label class="f" for="nama">Nama lengkap</label><input type="text" id="nama" maxlength="80" autocomplete="name">
+<div class="row"><div><label class="f" for="kelas">Kelas (contoh: 7H)</label><input type="text" id="kelas" maxlength="10"></div><div><label class="f" for="absen">Nomor absen</label><input type="number" id="absen" min="1" max="99" inputmode="numeric"></div></div></div>
+<div class="card"><h2>Petunjuk Pengisian</h2><p>Bacalah setiap pernyataan dengan cermat. Pilih jawaban yang paling sesuai dengan pengalamanmu setelah menggunakan PINERGI dalam pembelajaran IPA. Tidak ada jawaban benar atau salah. Isilah angket dengan jujur sesuai pengalamanmu.</p><p><b>SS</b> Sangat Setuju · <b>S</b> Setuju · <b>TS</b> Tidak Setuju · <b>STS</b> Sangat Tidak Setuju</p></div>
+<div class="prog"><span id="pt">0 dari 17 pernyataan terjawab</span><div class="bar"><i id="pb"></i></div></div>
+<div id="items"></div>
+<div class="card"><h2>Pertanyaan Terbuka <small>(boleh dikosongkan)</small></h2><div id="open"></div></div>
+<div id="err" class="msg err hide" role="alert"></div><button class="big" type="submit">Selesai &amp; Buat Kode Hasil</button></form></div>
+<div id="tch" class="hide">
+<div class="card"><h2>Tempel Kode Hasil Murid</h2><p class="mut">Tempel satu atau banyak kode sekaligus (boleh langsung dari chat WhatsApp). Data tersimpan di perangkat ini saja dan tetap ada saat halaman dibuka lagi.</p><textarea id="paste" aria-label="Kode hasil murid" placeholder="PNG1:…"></textarea><div class="row" style="margin-top:8px"><button id="add">Tambahkan</button><button class="sec" id="clr">Hapus semua data</button></div><div id="pm" class="msg hide" role="status"></div></div>
+<div class="card"><h2>Ringkasan</h2><div class="kpis" id="kpi"></div><p class="mut">Angket ini mengukur persepsi murid, bukan bukti peningkatan hasil belajar. Kategori (baik/cukup/kurang) belum dibuat; yang ditampilkan indeks numerik.</p></div>
+<div class="card"><h2>Indeks 7 Aspek</h2><div id="asp"></div><div id="sum" class="mut"></div></div>
+<div class="card"><h2>Rekap Murid</h2><div class="row" style="margin-bottom:8px"><input type="text" id="q" placeholder="Cari nama…" aria-label="Cari nama"><select id="kf" aria-label="Filter kelas"></select><button id="csv">⬇ Unduh CSV</button></div><div class="tw"><table id="tb"></table></div><div id="csvbox" class="hide"><p class="mut">Unduhan tidak tersedia di sini. Salin teks berikut, tempel ke Excel/Sheets.</p><textarea id="csvta" aria-label="Isi CSV"></textarea></div></div>
+<div class="card"><h2>Jawaban Terbuka</h2><div id="op"></div></div></div></div>
+<script>
+const ASP=[["Kemudahan Penggunaan",[1,2]],["Ketertarikan",[3,4,5]],["Pemahaman Konsep",[6,7,8]],["Eksplorasi",[9,10]],["Kontekstual",[11,12]],["Keterlibatan Belajar",[13,14,15]],["Aksesibilitas",[16,17]]];
+const T=["Petunjuk penggunaan PINERGI mudah saya pahami.","Saya merasa bingung ketika menggunakan PINERGI.","Tampilan PINERGI membuat saya tertarik mempelajari materi energi.","Animasi pergerakan hadiah membuat pembelajaran IPA lebih menarik.","Saya ingin mencoba kembali PINERGI untuk mengeksplorasi perubahan energi.","PINERGI membantu saya memahami perubahan energi potensial ketika hadiah jatuh.","PINERGI membantu saya memahami perubahan energi kinetik selama hadiah jatuh.","Saya masih kesulitan membedakan energi potensial dan energi kinetik setelah menggunakan PINERGI.","PINERGI membantu saya mengamati perubahan energi pada posisi hadiah yang berbeda.","Saya dapat menggunakan informasi dari simulasi untuk menjawab pertanyaan tentang perubahan energi.","Konteks hadiah dalam permainan panjat pinang membantu saya menghubungkan materi energi dengan kehidupan sehari-hari.","PINERGI membantu saya melihat penerapan konsep energi pada fenomena di sekitar kita.","Penggunaan PINERGI membuat saya lebih aktif mengikuti kegiatan pembelajaran IPA.","PINERGI mendorong saya mencoba fitur simulasi untuk menyelesaikan tugas pembelajaran.","Saya menggunakan hasil pengamatan dari PINERGI untuk menyampaikan pendapat dalam diskusi kelompok.","Tampilan visual dan keterangan yang tersedia membantu saya memahami informasi dalam PINERGI.","Saya mengalami kesulitan mengikuti simulasi karena petunjuk atau informasi yang tersedia kurang jelas."];
+const O=["Bagian PINERGI apa yang paling membantumu memahami materi energi? Jelaskan alasannya.","Kesulitan apa yang kamu alami saat menggunakan PINERGI?","Apa saranmu agar PINERGI menjadi media pembelajaran yang lebih baik?"];
+const C=[["SS","Sangat Setuju"],["S","Setuju"],["TS","Tidak Setuju"],["STS","Sangat Tidak Setuju"]],NEG=[2,8,17],MAP={SS:4,S:3,TS:2,STS:1},L2C={A:'SS',B:'S',C:'TS',D:'STS'},C2L={SS:'A',S:'B',TS:'C',STS:'D'},$=i=>document.getElementById(i);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function hitung(a){const sk=a.map((c,i)=>NEG.includes(i+1)?5-MAP[c]:MAP[c]),tot=sk.reduce((x,y)=>x+y,0);
+ return{sk,tot,idx:+((tot-17)/51*100).toFixed(2),asp:ASP.map(x=>{const n=x[1].length,s=x[1].reduce((t,no)=>t+sk[no-1],0);return +((s-n)/(3*n)*100).toFixed(2)})}}
+const u8=s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''),d8=s=>decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/'))));
+const chk=s=>{let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))%99991;return h.toString(36)};
+function enkode(r){const b=u8(JSON.stringify({n:r.nama,k:r.kelas,b:r.absen,j:r.jawaban.map(c=>C2L[c]).join(''),o:r.o,t:r.waktu}));return 'PNG1:'+b+'.'+chk(b)}
+function dekode(s){const m=s.match(/^PNG1:([A-Za-z0-9_-]+)\.([a-z0-9]+)$/);if(!m||chk(m[1])!==m[2])return null;try{const j=JSON.parse(d8(m[1]));
+ if(!j.n||!j.k||!(j.b>=1&&j.b<=99)||!/^[ABCD]{17}$/.test(j.j))return null;return{nama:String(j.n).slice(0,80),kelas:String(j.k).toUpperCase().slice(0,10),absen:+j.b,jawaban:j.j.split('').map(l=>L2C[l]),o:[0,1,2].map(i=>String((j.o||[])[i]||'').slice(0,1000)),waktu:j.t||''}}catch(e){return null}}
+$('items').innerHTML=ASP.map((a,k)=>'<div class="card"><h2>Aspek '+(k+1)+'. '+a[0]+'</h2>'+a[1].map(n=>'<fieldset id="q'+n+'"><legend>'+n+'. '+T[n-1]+'</legend><div class="opts">'+C.map(c=>'<label><input type="radio" name="p'+n+'" value="'+c[0]+'"><span>'+c[0]+'<small>'+c[1]+'</small></span></label>').join('')+'</div></fieldset>').join('')+'</div>').join('');
+$('open').innerHTML=O.map((q,i)=>'<label class="f" for="o'+(i+1)+'">'+(i+1)+'. '+q+'</label><textarea id="o'+(i+1)+'" maxlength="1000"></textarea>').join('');
+const ans=()=>T.map((_,i)=>{const r=document.querySelector('input[name=p'+(i+1)+']:checked');return r?r.value:null});
+$('form').addEventListener('change',()=>{const n=ans().filter(Boolean).length;$('pt').textContent=n+' dari 17 pernyataan terjawab';$('pb').style.width=n/17*100+'%'});
+const err=m=>{$('err').textContent=m;$('err').classList.remove('hide')};let KODE='';
+$('form').addEventListener('submit',e=>{e.preventDefault();$('err').classList.add('hide');
+ const nama=$('nama').value.trim(),kelas=$('kelas').value.trim().toUpperCase(),absen=parseInt($('absen').value,10),a=ans();
+ if(!nama||!kelas||!(absen>=1&&absen<=99)){err('Lengkapi nama, kelas, dan nomor absen (1–99).');return}
+ let first=null;T.forEach((_,i)=>{const bad=!a[i];$('q'+(i+1)).classList.toggle('bad',bad);if(bad&&!first)first=$('q'+(i+1))});
+ if(first){err('Masih ada pernyataan yang belum dijawab (ditandai garis merah).');first.scrollIntoView({behavior:'smooth',block:'center'});return}
+ KODE=enkode({nama,kelas,absen,jawaban:a,o:[1,2,3].map(i=>$('o'+i).value.trim().slice(0,1000)),waktu:new Date().toISOString()});
+ $('kode').textContent=KODE;$('form').classList.add('hide');$('done').classList.remove('hide');window.scrollTo(0,0)});
+$('cp').onclick=async()=>{try{await navigator.clipboard.writeText(KODE);$('cpm').textContent='Kode tersalin. Tempel di chat WhatsApp gurumu.'}catch(e){const r=document.createRange();r.selectNodeContents($('kode'));getSelection().removeAllRanges();getSelection().addRange(r);$('cpm').textContent='Kode terpilih. Tekan lama lalu pilih Salin.'}};
+$('wa').onclick=()=>window.open('https://wa.me/?text='+encodeURIComponent(KODE),'_blank','noopener');
+let DATA={};try{DATA=JSON.parse(localStorage.getItem('pinergi_data')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('pinergi_data',JSON.stringify(DATA))}catch(e){}};
+const mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null,med=a=>{if(!a.length)return null;const s=[...a].sort((x,y)=>x-y),m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2},f=x=>x==null?'–':x.toFixed(1);
+const rows=()=>Object.entries(DATA).map(([id,r])=>({...r,_id:id,...hitung(r.jawaban)}));
+function render(){const R=rows(),kl=[...new Set(R.map(r=>r.kelas))].sort(),cur=$('kf').value;$('kf').innerHTML='<option value="">Semua kelas</option>'+kl.map(k=>'<option>'+esc(k)+'</option>').join('');$('kf').value=kl.includes(cur)?cur:'';
+ const idx=R.map(r=>r.idx),today=new Date().toDateString();
+ $('kpi').innerHTML=[[R.length,'Murid mengisi'],[kl.length,'Kelas'],[f(mean(idx))+'%','Rata-rata indeks'],[f(med(idx))+'%','Median indeks'],[R.filter(r=>r.waktu&&new Date(r.waktu).toDateString()===today).length,'Masuk hari ini']].map(x=>'<div class="kpi"><b>'+x[0]+'</b>'+x[1]+'</div>').join('');
+ const A=ASP.map((a,k)=>({n:a[0],c:a[1].length,v:mean(R.map(r=>r.asp[k]))}));
+ $('asp').innerHTML=A.map(a=>'<div class="hb"><span>'+a.n+' <small>('+a.c+' butir)</small></span><div class="t"><i style="width:'+(a.v||0)+'%"></i></div><b>'+f(a.v)+'%</b></div>').join('');
+ const ok=A.filter(a=>a.v!=null);$('sum').innerHTML=ok.length?'Tertinggi: <b>'+esc(ok.reduce((x,y)=>y.v>x.v?y:x).n)+'</b> ('+f(Math.max(...ok.map(a=>a.v)))+'%). Terendah: <b>'+esc(ok.reduce((x,y)=>y.v<x.v?y:x).n)+'</b> ('+f(Math.min(...ok.map(a=>a.v)))+'%). Selisih: '+f(Math.max(...ok.map(a=>a.v))-Math.min(...ok.map(a=>a.v)))+' poin persen.':'Belum ada data.';
+ tabel();$('op').innerHTML=O.map((q,i)=>'<h3>'+(i+1)+'. '+esc(q)+'</h3>'+R.filter(r=>r.o[i]).map(r=>'<div class="ans"><b>'+esc(r.nama)+'</b> · '+esc(r.kelas)+'<br>'+esc(r.o[i])+'</div>').join('')).join('')}
+function tabel(){const q=$('q').value.toLowerCase(),k=$('kf').value,R=rows().filter(r=>(!k||r.kelas===k)&&r.nama.toLowerCase().includes(q)).sort((a,b)=>a.kelas.localeCompare(b.kelas)||a.absen-b.absen);
+ $('tb').innerHTML='<tr><th>Nama</th><th>Kelas</th><th>No</th><th>Skor</th><th>Indeks</th>'+ASP.map((_,i)=>'<th>A'+(i+1)+'</th>').join('')+'<th></th></tr>'+R.map(r=>'<tr><td>'+esc(r.nama)+'</td><td>'+esc(r.kelas)+'</td><td>'+r.absen+'</td><td>'+r.tot+'</td><td>'+f(r.idx)+'%</td>'+r.asp.map(v=>'<td>'+f(v)+'</td>').join('')+'<td><button class="sec" data-id="'+esc(r._id)+'">Hapus</button></td></tr>').join('')}
+$('q').oninput=tabel;$('kf').onchange=tabel;
+$('tb').onclick=e=>{const id=e.target.dataset&&e.target.dataset.id;if(!id||!confirm('Hapus data murid ini?'))return;delete DATA[id];save();render()};
+$('clr').onclick=()=>{if(confirm('Hapus SEMUA data di perangkat ini?')){DATA={};save();render()}};
+$('add').onclick=()=>{const m=$('paste').value.match(/PNG1:[A-Za-z0-9_-]+\.[a-z0-9]+/g)||[];let n=0,up=0,bad=0;
+ m.forEach(s=>{const r=dekode(s);if(!r){bad++;return}const id=r.kelas.replace(/[^A-Z0-9]/g,'')+'-'+r.absen;if(DATA[id]){if((DATA[id].waktu||'')>=(r.waktu||'')){return}up++}else n++;DATA[id]=r});
+ save();render();const b=$('pm');b.className='msg '+(bad||!m.length?'err':'ok');b.textContent=!m.length?'Tidak ada kode yang ditemukan.':n+' murid baru, '+up+' diperbarui (kelas+absen sama: dipakai yang terbaru)'+(bad?', '+bad+' kode rusak/terpotong—minta murid mengirim ulang.':'.');if(!bad&&m.length)$('paste').value=''};
+$('csv').onclick=async()=>{const sf=v=>{v=String(v??'');if(/^[=+\-@]/.test(v))v="'"+v;return /[",\r\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v},R=rows();
+ const H=['Nama','Kelas','No Absen','Waktu',...T.map((_,i)=>'P'+(i+1)),...T.map((_,i)=>'Skor'+(i+1)),'Skor Total','Indeks Total',...ASP.map((a,i)=>'Indeks A'+(i+1)+' '+a[0]),'Terbuka 1','Terbuka 2','Terbuka 3'];
+ const txt=[H,...R.map(r=>[r.nama,r.kelas,r.absen,r.waktu,...r.jawaban,...r.sk,r.tot,r.idx,...r.asp,...r.o])].map(r=>r.map(sf).join(',')).join('\r\n');
+ let d=null;try{d=await claude.use('downloads')}catch(e){}
+ if(d){try{await d.save({filename:'hasil-angket-pinergi.csv',data:'\ufeff'+txt});return}catch(e){if(e&&e.code==='declined')return}}
+ $('csvta').value=txt;$('csvbox').classList.remove('hide')};
+function tab(g){$('stu').classList.toggle('hide',g);$('tch').classList.toggle('hide',!g);$('t1').classList.toggle('on',!g);$('t2').classList.toggle('on',g);if(g)render()}
+$('t1').onclick=()=>tab(false);$('t2').onclick=()=>tab(true);
+</script></body></html>
